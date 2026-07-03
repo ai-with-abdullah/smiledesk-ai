@@ -1,0 +1,7 @@
+name = "smiledesk"
+main = "worker.js"
+compatibility_date = "2026-07-01"
+
+[[kv_namespaces]]
+binding = "ASSISTANTS"
+id = "PASTE_THE_ID_FROM_WRANGLER_KV_CREATE_HERE"

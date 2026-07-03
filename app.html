@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Your AI Receptionist — SmileDesk AI</title>
+<meta name="description" content="Build your clinic's 24/7 AI receptionist in 2 minutes. Free 14-day trial, no card needed. Paste one line of code on your website and never miss a patient again.">
+<style>
+  :root{--navy:#0b1f3a;--blue:#1766ff;--teal:#00c2a8;--bg:#f7f9fc;--muted:#5b6b7c;--radius:14px;--shadow:0 10px 30px rgba(11,31,58,.10)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:#1c2733;line-height:1.6}
+  .container{max-width:760px;margin:0 auto;padding:0 20px}
+  nav{background:#fff;border-bottom:1px solid #e6ecf3}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center;height:60px}
+  .logo{font-weight:800;font-size:1.15rem;color:var(--navy);text-decoration:none}
+  .logo span{color:var(--blue)}
+  header{text-align:center;padding:52px 0 36px}
+  h1{font-size:clamp(1.7rem,4vw,2.4rem);color:var(--navy);line-height:1.2}
+  .sub{color:var(--muted);margin-top:12px;font-size:1.05rem}
+  .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:34px;margin:24px 0 60px}
+  label{display:block;font-weight:600;font-size:.9rem;color:var(--navy);margin:18px 0 6px}
+  label small{font-weight:400;color:var(--muted)}
+  input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid #d7e0ec;border-radius:10px;font-size:1rem;font-family:inherit}
+  input:focus,textarea:focus{outline:none;border-color:var(--blue)}
+  .btn{display:inline-block;width:100%;padding:16px;border-radius:999px;border:none;background:var(--blue);color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;margin-top:26px}
+  .btn:hover{background:#0f4fd1}
+  .btn:disabled{opacity:.6;cursor:wait}
+  .result{display:none}
+  .ok-badge{background:#e7faf5;border:1px solid var(--teal);color:#067a68;border-radius:10px;padding:14px 18px;font-weight:600;margin-bottom:22px}
+  h3{color:var(--navy);margin:26px 0 8px;font-size:1.05rem}
+  code,pre{background:#0b1f3a;color:#c9f0ff;border-radius:10px;font-size:.85rem}
+  pre{padding:16px;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+  .copy{background:none;border:1.5px solid #d7e0ec;border-radius:8px;padding:6px 14px;font-size:.85rem;cursor:pointer;margin-top:8px;font-weight:600;color:var(--navy)}
+  .pay{background:#fff8e8;border:1px solid #f0c948;border-radius:10px;padding:16px 18px;margin-top:26px;font-size:.95rem}
+  .pay a{color:var(--blue);font-weight:700}
+  .err{display:none;background:#fdecec;border:1px solid #e57373;color:#a33;border-radius:10px;padding:12px 16px;margin-top:18px;font-size:.92rem}
+  .steps-hint{color:var(--muted);font-size:.9rem;text-align:center;margin-top:-8px}
+</style>
+</head>
+<body>
+
+<nav><div class="container nav-inner">
+  <a class="logo" href="index.html">Smile<span>Desk</span> AI</a>
+  <a href="index.html" style="color:var(--muted);text-decoration:none;font-size:.95rem">← Back to site</a>
+</div></nav>
+
+<header class="container">
+  <h1>Create your AI receptionist<br>in 2 minutes ⚡</h1>
+  <p class="sub">Fill in your business details → get one line of code for your website.<br>
+  <b>Free for 14 days. No card. No calls with us. It just works.</b></p>
+</header>
+
+<div class="container">
+  <div class="card" id="formCard">
+    <form id="createForm">
+      <label for="business_name">Business name *</label>
+      <input id="business_name" required maxlength="120" placeholder="Bright Smile Dental Clinic">
+
+      <label for="business_type">Business type *</label>
+      <select id="business_type" required>
+        <option value="dental clinic" selected>Dental clinic</option>
+        <option value="medical clinic">Medical clinic</option>
+        <option value="beauty salon / spa">Beauty salon / Spa</option>
+        <option value="restaurant">Restaurant</option>
+        <option value="real estate agency">Real estate agency</option>
+        <option value="fitness studio / gym">Fitness studio / Gym</option>
+        <option value="local service business">Other local business</option>
+      </select>
+
+      <label for="location">Location (address / city) *</label>
+      <input id="location" required maxlength="300" placeholder="12 Main Boulevard, Lahore">
+
+      <label for="hours">Opening hours *</label>
+      <input id="hours" required maxlength="500" placeholder="Mon–Sat 9am–8pm, Sunday closed">
+
+      <label for="services">Services &amp; prices * <small>— one per line, the AI only says what you write here</small></label>
+      <textarea id="services" required rows="4" maxlength="2000" placeholder="Checkup & cleaning — Rs. 3,000&#10;Teeth whitening — Rs. 15,000&#10;Root canal — from Rs. 20,000"></textarea>
+
+      <label for="phone">Phone / WhatsApp <small>— shown for emergencies</small></label>
+      <input id="phone" maxlength="60" placeholder="+92 300 1234567">
+
+      <label for="booking_link">Booking link <small>— Google Calendar / Calendly, optional</small></label>
+      <input id="booking_link" maxlength="300" placeholder="https://calendly.com/yourclinic">
+
+      <label for="languages">Languages the assistant should speak</label>
+      <input id="languages" maxlength="200" value="English, Urdu">
+
+      <label for="faq">Extra info / FAQ <small>— insurance, parking, policies (optional)</small></label>
+      <textarea id="faq" rows="3" maxlength="4000" placeholder="We accept XYZ insurance. Free parking behind the building."></textarea>
+
+      <label for="contact_email">Your email * <small>— for your trial receipt, never shared</small></label>
+      <input id="contact_email" type="email" required maxlength="200" placeholder="you@clinic.com">
+
+      <button class="btn" id="createBtn" type="submit">Create My Free Assistant →</button>
+      <div class="err" id="errBox"></div>
+    </form>
+  </div>
+
+  <div class="card result" id="resultCard">
+    <div class="ok-badge">✅ Your AI receptionist is LIVE — 14-day free trial started</div>
+
+    <h3>1 · Test it right now</h3>
+    <p style="color:var(--muted);font-size:.95rem">Open your assistant's hosted page and chat with it:</p>
+    <pre id="hostedLink"></pre>
+    <button class="copy" data-copy="hostedLink">Copy link</button>
+    <a id="openBtn" href="#" target="_blank" rel="noopener" class="copy" style="text-decoration:none;display:inline-block;margin-left:8px">Open ↗</a>
+
+    <h3>2 · Add it to your website</h3>
+    <p style="color:var(--muted);font-size:.95rem">Paste this single line before <code>&lt;/body&gt;</code> on your site (or send it to your web person):</p>
+    <pre id="embedCode"></pre>
+    <button class="copy" data-copy="embedCode">Copy embed code</button>
+
+    <h3>3 · After your free trial</h3>
+    <div class="pay">
+      💳 Keep your assistant running for <b>$29/month</b> — cancel anytime.<br>
+      <a id="payLink" href="#" target="_blank" rel="noopener">Subscribe here</a> and include your Assistant ID:
+      <code style="padding:2px 8px" id="aid"></code>
+    </div>
+    <p style="color:var(--muted);font-size:.88rem;margin-top:16px">Questions? Email <a href="mailto:abdullah.tech.ai@gmail.com">abdullah.tech.ai@gmail.com</a> — we reply within 24h.</p>
+  </div>
+  <p class="steps-hint" id="hint">Trusted by clinics — your data stays yours, delete anytime with one email.</p>
+</div>
+
+<script>
+/* ═══ CONFIGURATION — set these two after deploying the Worker (see product/DEPLOY.md) ═══ */
+var WORKER_URL  = "";  // e.g. "https://smiledesk.YOURNAME.workers.dev"
+var PAYMENT_URL = "";  // your Stripe/LemonSqueezy payment link, e.g. "https://buy.stripe.com/xxxx"
+/* ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+var SITE = "https://ai-with-abdullah.github.io/smiledesk-ai";
+
+document.getElementById("createForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var err = document.getElementById("errBox");
+  err.style.display = "none";
+
+  if (!WORKER_URL) {
+    err.textContent = "We're onboarding new clinics manually right now — email abdullah.tech.ai@gmail.com and we'll set yours up within 24 hours, free.";
+    err.style.display = "block";
+    return;
+  }
+
+  var btn = document.getElementById("createBtn");
+  btn.disabled = true; btn.textContent = "Creating your assistant…";
+
+  var payload = {};
+  ["business_name","business_type","location","hours","services","phone","booking_link","languages","faq","contact_email"]
+    .forEach(function (f) { payload[f] = document.getElementById(f).value.trim(); });
+
+  fetch(WORKER_URL.replace(/\/$/,"") + "/api/create", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (d) {
+    if (!d.ok) throw new Error(d.error || "Failed");
+    var hosted = SITE + "/assistant.html?id=" + d.id + "&api=" + encodeURIComponent(WORKER_URL);
+    var embed  = '<script src="' + SITE + '/widget.js" data-id="' + d.id + '" data-api="' + WORKER_URL + '" defer><\/script>';
+    document.getElementById("hostedLink").textContent = hosted;
+    document.getElementById("openBtn").href = hosted;
+    document.getElementById("embedCode").textContent = embed;
+    document.getElementById("aid").textContent = d.id;
+    document.getElementById("payLink").href = PAYMENT_URL || ("mailto:abdullah.tech.ai@gmail.com?subject=Subscribe%20assistant%20" + d.id);
+    document.getElementById("formCard").style.display = "none";
+    document.getElementById("hint").style.display = "none";
+    document.getElementById("resultCard").style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  })
+  .catch(function (ex) {
+    err.textContent = "Something went wrong (" + ex.message + "). Please try again or email abdullah.tech.ai@gmail.com.";
+    err.style.display = "block";
+  })
+  .finally(function () { btn.disabled = false; btn.textContent = "Create My Free Assistant →"; });
+});
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("copy") && e.target.dataset.copy) {
+    navigator.clipboard.writeText(document.getElementById(e.target.dataset.copy).textContent);
+    var old = e.target.textContent; e.target.textContent = "Copied ✓";
+    setTimeout(function () { e.target.textContent = old; }, 1500);
+  }
+});
+</script>
+</body>
+</html>
